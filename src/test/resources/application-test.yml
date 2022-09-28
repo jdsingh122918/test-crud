@@ -1,0 +1,17 @@
+flyway:
+  datasources:
+    default:
+      enabled: false
+datasources:
+  default:
+    username: jdsingh
+    password: password
+jpa:
+  default:
+    properties:
+      hibernate:
+        hbm2ddl:
+          auto: none
+        connection:
+          username: ${datasources.default.username}
+          password: ${datasources.default.password}

@@ -1,0 +1,54 @@
+plugins {
+    id("com.github.johnrengelman.shadow") version "7.1.2"
+    id("io.micronaut.application") version "3.6.0"
+    id ("com.gorylenko.gradle-git-properties") version "2.3.2"
+
+}
+
+version = "0.1"
+group = "dev.fermatsolutions"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    annotationProcessor("io.micronaut:micronaut-http-validation")
+    implementation("io.micronaut.data:micronaut-data-hibernate-reactive")
+    implementation("io.vertx:vertx-pg-client")
+    implementation("io.micronaut:micronaut-http-client")
+    implementation("io.micronaut:micronaut-jackson-databind")
+    implementation("jakarta.annotation:jakarta.annotation-api")
+    implementation("io.micronaut.flyway:micronaut-flyway")
+    implementation("io.micronaut.reactor:micronaut-reactor")
+    implementation("org.postgresql:postgresql")
+    implementation("io.micronaut:micronaut-management")
+    runtimeOnly("ch.qos.logback:logback-classic")
+    implementation("io.micronaut:micronaut-validation")
+    implementation("com.ongres.scram:client:2.1")
+    testImplementation("org.testcontainers:testcontainers")
+    testImplementation("org.testcontainers:junit-jupiter")
+    testImplementation("com.ongres.scram:client:2.1")
+}
+
+
+application {
+    mainClass.set("dev.fermatsolutions.Application")
+}
+java {
+    sourceCompatibility = JavaVersion.toVersion("17")
+    targetCompatibility = JavaVersion.toVersion("17")
+}
+
+graalvmNative.toolchainDetection = false
+micronaut {
+    runtime("netty")
+    testRuntime("junit5")
+    processing {
+        incremental(true)
+        annotations("dev.fermatsolutions.*")
+    }
+}
+
+
+

@@ -1,0 +1,35 @@
+micronaut:
+  application:
+    name: testCrud
+netty:
+  default:
+    allocator:
+      max-order: 3
+datasources:
+  default:
+    url: ${JDBC_URL:`jdbc:postgresql://localhost:5432/postgres`}
+    username: ${JDBC_USER:jdsingh}
+    password: ${JDBC_PASSWORD:password}
+jpa:
+  default:
+    entity-scan:
+      packages:
+        - 'dev.fermatsolutions.domain'
+    reactive: true
+    properties:
+      hibernate:
+        show_sql: true
+        hbm2ddl:
+          auto: none
+        connection:
+          url: ${datasources.default.url}
+          username: ${datasources.default.username}
+          password: ${datasources.default.password}
+flyway:
+  datasources:
+    default:
+      enabled: false
+endpoints:
+  info:
+    enabled: true
+    sensitive: false
